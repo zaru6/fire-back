@@ -3,6 +3,8 @@ package com.evilapp.fire.service;
 import java.nio.CharBuffer;
 import java.util.Optional;
 
+import org.mapstruct.factory.Mappers;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

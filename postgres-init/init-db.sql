@@ -29,15 +29,17 @@ VALUES(5, 'pršut', 32, true);
 -- Create 'users' table
 CREATE TABLE models.users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(255) UNIQUE,
+    login VARCHAR(255) UNIQUE,
+    first_name VARCHAR(255),
+    last_name VARCHAR(255),
     password VARCHAR(255)
 );
 
 -- Create 'users' init data
 INSERT INTO models.users
-(id, username, "password")
+(id, login, "password")
 VALUES(1, 'user1', '1234');
 INSERT INTO models.users
-(id, username, "password")
+(id, login, "password")
 VALUES(2, 'user2', '1234');
 
