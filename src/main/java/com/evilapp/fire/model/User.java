@@ -27,7 +27,7 @@ public class User {
     @Size(max = 100)
     private String lastName;
 
-    @Column(nullable = false)
+    @Column(name = "login", nullable = false)
     @Size(max = 100)
     private String login;
 
