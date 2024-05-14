@@ -2,8 +2,8 @@ package mapper;
 
 import com.evilapp.fire.model.User;
 
-import dtos.SignUpDto;
-import dtos.UserDto;
+import dtos.RegisterUserDto;
+import dtos.LoginUserDto;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,9 +11,9 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
-    UserDto toUserDto(User user);
+    LoginUserDto toUserDto(User user);
 
     @Mapping(target = "password", ignore = true)
-    User signUpToUser(SignUpDto signUpDto);
+    User signUpToUser(RegisterUserDto signUpDto);
 
 }
