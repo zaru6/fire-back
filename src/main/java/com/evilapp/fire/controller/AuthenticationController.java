@@ -6,13 +6,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.evilapp.fire.dtos.LoginUserDto;
+import com.evilapp.fire.dtos.RegisterUserDto;
 import com.evilapp.fire.model.LoginResponse;
 import com.evilapp.fire.model.User;
 import com.evilapp.fire.service.AuthenticationService;
 import com.evilapp.fire.service.JwtService;
-
-import dtos.LoginUserDto;
-import dtos.RegisterUserDto;
 
 @RequestMapping("/auth")
 @RestController

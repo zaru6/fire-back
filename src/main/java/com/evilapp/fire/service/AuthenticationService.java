@@ -5,11 +5,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.evilapp.fire.dtos.LoginUserDto;
+import com.evilapp.fire.dtos.RegisterUserDto;
 import com.evilapp.fire.model.User;
 import com.evilapp.fire.repository.UserRepository;
-
-import dtos.LoginUserDto;
-import dtos.RegisterUserDto;
 
 @Service
 public class AuthenticationService {

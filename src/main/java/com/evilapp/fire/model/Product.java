@@ -1,7 +1,5 @@
 package com.evilapp.fire.model;
 
-import org.hibernate.annotations.DialectOverride.ColumnDefaults;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
