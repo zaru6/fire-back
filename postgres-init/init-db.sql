@@ -1,3 +1,6 @@
+-- set time zone
+SET TIME ZONE 'Europe/Zagreb';
+
 -- Create 'models' schema
 CREATE SCHEMA models;
 
@@ -27,19 +30,19 @@ INSERT INTO models.products
 VALUES(5, 'pršut', 32, true);
 
 -- Create 'users' table
-CREATE TABLE models.users (
-    id SERIAL PRIMARY KEY,
-    login VARCHAR(255) UNIQUE,
-    first_name VARCHAR(255),
-    last_name VARCHAR(255),
-    password VARCHAR(255)
+CREATE SEQUENCE users_id_seq;
+CREATE TABLE users (
+  id INTEGER NOT NULL DEFAULT nextval('users_id_seq'),
+  full_name VARCHAR(255) NOT NULL,
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+--  CONSTRAINT chk_password CHECK (password ~ '^[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]+$'),
+  CONSTRAINT pk_users PRIMARY KEY (id)
 );
 
 -- Create 'users' init data
-INSERT INTO models.users
-(id, login, "password")
-VALUES(1, 'user1', '1234');
-INSERT INTO models.users
-(id, login, "password")
-VALUES(2, 'user2', '1234');
+INSERT INTO users (full_name, email, password, created_at, updated_at)
+VALUES ('John Doe', 'johndoe@example.com', 'mypassword', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
