@@ -8,7 +8,10 @@ import io.jsonwebtoken.security.Keys;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +25,8 @@ public class JwtService {
 
     @Value("${security.jwt.expiration-time}")
     private long jwtExpiration;
+
+    private final ConcurrentHashMap<String, Set<String>> blacklist = new ConcurrentHashMap<>();
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -84,5 +89,13 @@ public class JwtService {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public void addToBlacklist(String token) {
+        blacklist.computeIfAbsent(token, key -> new HashSet<>()).add("logout");
+    }
+
+    public boolean isTokenInBlacklist(String token) {
+        return blacklist.containsKey(token) && blacklist.get(token).contains("logout");
     }
 }
