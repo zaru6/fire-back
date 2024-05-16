@@ -16,11 +16,12 @@ import com.evilapp.fire.model.User;
 import com.evilapp.fire.service.AuthenticationService;
 import com.evilapp.fire.service.JwtService;
 
+import io.jsonwebtoken.ExpiredJwtException;
+
 @RequestMapping("/auth")
 @RestController
 public class AuthenticationController {
     private final JwtService jwtService;
-    
     private final AuthenticationService authenticationService;
 
     public AuthenticationController(JwtService jwtService, AuthenticationService authenticationService) {
@@ -49,11 +50,21 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<String> logout(@RequestHeader("Authorization") String authorizationHeader) {
+        String token = authorizationHeader.replace("Bearer ", "");
         Optional<String> username = Optional.ofNullable(jwtService.extractUsername(token));
         if (username.isPresent()) {
             jwtService.addToBlacklist(token);
         }
-        return ResponseEntity.noContent().build();
+        try {
+            //TODO: validateToken(), isExpired.... 
+            return ResponseEntity.ok("Logout successful for user: " + username.get());
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body("Invalid token");
+        } catch (ExpiredJwtException e) {
+            return ResponseEntity.badRequest().body("Token has expired");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error logging out");
+        }
     }
 }
