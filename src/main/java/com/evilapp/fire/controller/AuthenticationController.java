@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.evilapp.fire.dtos.LoginUserDto;
 import com.evilapp.fire.dtos.RegisterUserDto;
 import com.evilapp.fire.model.LoginResponse;
+import com.evilapp.fire.model.LogoutResponse;
 import com.evilapp.fire.model.User;
 import com.evilapp.fire.service.AuthenticationService;
 import com.evilapp.fire.service.BlackListService;
@@ -49,21 +50,27 @@ public class AuthenticationController {
     }
 
     @PostMapping("/logout")
-    public ResponseEntity<String> logoutAndReturnMessage(@RequestHeader("Authorization") String authorizationHeader) {
-        System.out.println("logout started");
+    public ResponseEntity<LogoutResponse> logoutAndReturnMessage(@RequestHeader("Authorization") String authorizationHeader) {
+        String token = extractTokenFromHeader(authorizationHeader);
+        String username = jwtService.extractUsername(token);
+        LogoutResponse logoutResponse = new LogoutResponse("", username);
         try {
-            String token = extractTokenFromHeader(authorizationHeader);
             if (blacklistService.addToBlacklist(token)) {
-                return ResponseEntity.ok("Logout successful for user: " + jwtService.extractUsername(token));
+                logoutResponse.setMessage("Logout successful for user.");
+                return ResponseEntity.ok(logoutResponse); //TODO add extract username to add username in msg
             } else {
-                return ResponseEntity.badRequest().body("Token already invalidated");
+                logoutResponse.setMessage("Token already invalidated");
+                return ResponseEntity.badRequest().body(logoutResponse);
             }
         } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body("Invalid token");
+            logoutResponse.setMessage("Invalid token");
+            return ResponseEntity.badRequest().body(logoutResponse);
         } catch (ExpiredJwtException e) {
-            return ResponseEntity.badRequest().body("Token has expired");
+            logoutResponse.setMessage("Token has expired");
+            return ResponseEntity.badRequest().body(logoutResponse);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Error logging out");
+            logoutResponse.setMessage("Error logging out");
+            return ResponseEntity.badRequest().body(logoutResponse);
         }
     }
 
