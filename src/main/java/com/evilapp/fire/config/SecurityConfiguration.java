@@ -53,7 +53,7 @@ public class SecurityConfiguration {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of("http://localhost:4200")); // Only allow requests from localhost:4200
-        configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS")); // Add OPTIONS method for CORS preflight requests
+        configuration.setAllowedMethods(List.of("GET", "POST", "OPTIONS", "DELETE")); // Add OPTIONS method for CORS preflight requests
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
