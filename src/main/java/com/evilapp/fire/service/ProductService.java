@@ -2,6 +2,7 @@ package com.evilapp.fire.service;
 
 import com.evilapp.fire.dao.JdbcFireDao;
 import com.evilapp.fire.model.Product;
+import com.evilapp.fire.model.ProductTable;
 import com.evilapp.fire.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,7 +38,7 @@ public class ProductService {
         productRepository.deleteById(id);
     }
 
-    public List<Product> getProductsForTable() {
+    public List<ProductTable> getProductsForTable() {
         return jdbcFireDao.getProductsForTable();
     }
 }
