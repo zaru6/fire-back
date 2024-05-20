@@ -4,31 +4,6 @@ SET TIME ZONE 'Europe/Zagreb';
 -- Create 'models' schema
 CREATE SCHEMA models;
 
--- Create 'products' table
-CREATE TABLE models.products (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-    price INTEGER,
-    available BOOLEAN
-);
-
--- Create 'products' init data
-INSERT INTO models.products
-(id, name, price, available)
-VALUES(1, 'salad', 23, true);
-INSERT INTO models.products
-(id, name, price, available)
-VALUES(2, 'tomato', 32, true);
-INSERT INTO models.products
-(id, name, price, available)
-VALUES(3, 'paprika', 32, true);
-INSERT INTO models.products
-(id, name, price, available)
-VALUES(4, 'pastrva', 32, true);
-INSERT INTO models.products
-(id, name, price, available)
-VALUES(5, 'pršut', 32, true);
-
 -- Create 'users' table
 CREATE SEQUENCE users_id_seq;
 CREATE TABLE users (
@@ -75,6 +50,7 @@ CREATE TABLE models.subcategories (
 -- Create 'subcategories' init data
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('fruits_groceries', 'Fruits', (select id from models.categories where name='groceries' ));
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('vegetables_groceries', 'Vegetables', (select id from models.categories where name='groceries'));
+INSERT INTO models.subcategories (name, label, category_id) VALUES ('meat_groceries', 'Meat', (select id from models.categories where name='groceries'));
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('electric_guitars_musical_instruments', 'Electric Guitars', (select id from models.categories where name='musical_instruments'));
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('acoustic_guitars_musical_instruments', 'Acoustic Guitars', (select id from models.categories where name='musical_instruments'));
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('drums_and_percussion_musical_instruments', 'Drums And Percussion', (select id from models.categories where name='musical_instruments'));
@@ -83,6 +59,45 @@ INSERT INTO models.subcategories (name, label, category_id) VALUES ('cleaning_pr
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('hygiene_chemistry', 'Hygiene', (select id from models.categories where name='chemistry'));
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('cooking_appliances', 'Cooking', (select id from models.categories where name='appliances'));
 INSERT INTO models.subcategories (name, label, category_id) VALUES ('cleaning_appliances', 'Cleaning', (select id from models.categories where name='appliances'));
+
+-- Create 'products' table
+CREATE TABLE models.products (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255),
+    price INTEGER,
+    subcategory_id INTEGER,
+    available BOOLEAN
+);
+
+-- Create 'products' init data
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Salad', 23, (select id from models.subcategories where name='vegetables_groceries'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Tomato', 32, (select id from models.subcategories where name='vegetables_groceries'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Paprika', 32, (select id from models.subcategories where name='vegetables_groceries'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Pastrva', 32, (select id from models.subcategories where name='meat_groceries'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Pršut', 32, (select id from models.subcategories where name='meat_groceries'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Ibanez Prestige', 1500, (select id from models.subcategories where name='cleaning_appliances'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Sonor drum set', 1500, (select id from models.subcategories where name='drums_and_percussion_musical_instruments'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Gorenje washing machine', 2000, (select id from models.subcategories where name='drums_and_percussion_musical_instruments'), true);
+INSERT INTO models.products
+(name, price, subcategory_id, available)
+VALUES('Old spice lagoon', 2.5, (select id from models.subcategories where name='deodorants_chemistry'), true);
+
 
 
 
