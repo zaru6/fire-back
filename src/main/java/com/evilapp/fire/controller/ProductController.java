@@ -31,7 +31,7 @@ public class ProductController {
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         Optional<Product> product = productService.findProductById(id);
         return product.map(ResponseEntity::ok)
-                      .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -51,5 +51,11 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/table")
+    public ResponseEntity<List<Product>> getAllProductsForTable() {
+        List<Product> products = productService.getProductsForTable();
+        return ResponseEntity.ok(products);
     }
 }

@@ -1,5 +1,6 @@
 package com.evilapp.fire.service;
 
+import com.evilapp.fire.dao.JdbcFireDao;
 import com.evilapp.fire.model.Product;
 import com.evilapp.fire.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,12 @@ import java.util.Optional;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final JdbcFireDao jdbcFireDao;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, JdbcFireDao jdbcFireDao) {
         this.productRepository = productRepository;
+        this.jdbcFireDao = jdbcFireDao;
     }
 
     public List<Product> findAllProducts() {
@@ -32,5 +35,9 @@ public class ProductService {
 
     public void deleteProduct(Long id) {
         productRepository.deleteById(id);
+    }
+
+    public List<Product> getProductsForTable() {
+        return jdbcFireDao.getProductsForTable();
     }
 }
