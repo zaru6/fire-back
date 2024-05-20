@@ -22,6 +22,9 @@ public class Product {
     private Integer price;
 
     @Column
+    private Integer subcategoryId;
+
+    @Column
     private Boolean available;
 
     public Product() {
@@ -64,6 +67,14 @@ public class Product {
 
     public void setAvailable(Boolean available) {
         this.available = available;
-    } 
+    }
+
+    public Integer getSubcategoryId() {
+        return subcategoryId;
+    }
+
+    public void setSubcategoryId(Integer subcategoryId) {
+        this.subcategoryId = subcategoryId;
+    }
 
 }
