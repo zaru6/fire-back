@@ -1,8 +1,12 @@
 package com.evilapp.fire.model;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Id;
 
 public class ProductTable {
+
+    @Id // Ensures the column is not nullable and sets max length
+    private Long id;
 
     @Column // Ensures the column is not nullable and sets max length
     private String name;
@@ -14,10 +18,10 @@ public class ProductTable {
     private boolean available;
 
     @Column
-    private String categoryName;
+    private String categoryLabel;
 
     @Column
-    private String subcategoryName;
+    private String subcategoryLabel;
 
     public ProductTable() {
 
@@ -47,20 +51,30 @@ public class ProductTable {
         this.available = available;
     }
 
-    public String getCategoryName() {
-        return categoryName;
+    public Long getId() {
+        return id;
     }
 
-    public void setCategoryName(String categoryName) {
-        this.categoryName = categoryName;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getSubcategoryName() {
-        return subcategoryName;
+    public String getCategoryLabel() {
+        return categoryLabel;
     }
 
-    public void setSubcategoryName(String subcategoryName) {
-        this.subcategoryName = subcategoryName;
+    public void setCategoryLabel(String categoryLabel) {
+        this.categoryLabel = categoryLabel;
     }
+
+    public String getSubcategoryLabel() {
+        return subcategoryLabel;
+    }
+
+    public void setSubcategoryLabel(String subcategoryLabel) {
+        this.subcategoryLabel = subcategoryLabel;
+    }
+
+    
 
 }

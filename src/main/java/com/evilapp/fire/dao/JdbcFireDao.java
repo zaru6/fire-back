@@ -13,7 +13,7 @@ import com.evilapp.fire.model.ProductTable;
 public class JdbcFireDao {
 
 
-    private final String SQL_GET_PRODUCTS_FOR_TABLE = "select p.name AS product_name, p.price AS product_price, p.available AS is_available,c.label AS category_label, s.label AS subcategory_label from models.products p join models.subcategories s on p.subcategory_id=s.id join models.categories c on s.category_id=c.id";
+    private final String SQL_GET_PRODUCTS_FOR_TABLE = "select p.id, p.name AS product_name, p.price AS product_price, p.available AS is_available,c.label AS category_label, s.label AS subcategory_label from models.products p join models.subcategories s on p.subcategory_id=s.id join models.categories c on s.category_id=c.id";
 
     private final JdbcTemplate jdbcTemplate;
 
