@@ -8,7 +8,9 @@ CREATE SCHEMA models;
 CREATE SEQUENCE users_id_seq;
 CREATE TABLE users (
   id INTEGER NOT NULL DEFAULT nextval('users_id_seq'),
-  full_name VARCHAR(255) NOT NULL,
+  username VARCHAR(100) UNIQUE NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
   email VARCHAR(100) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
@@ -18,8 +20,8 @@ CREATE TABLE users (
 );
 
 -- Create 'users' init data
-INSERT INTO users (full_name, email, password, created_at, updated_at)
-VALUES ('John Doe', 'johndoe@example.com', 'mypassword', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+INSERT INTO users (username, first_name, last_name, email, password, created_at, updated_at)
+VALUES ('johndoe', 'John', 'Doe', 'johndoe@example.com', 'mypassword', CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 -- Create 'categories' table
 CREATE SEQUENCE categories_id_seq;

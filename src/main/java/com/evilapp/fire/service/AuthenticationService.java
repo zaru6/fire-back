@@ -30,7 +30,9 @@ public class AuthenticationService {
 
     public User signup(RegisterUserDto input) {
         User user = new User();
-        user.setFullName(input.getFullName());
+        user.setUsername(input.getUsername());
+        user.setFirstName(input.getFirstName());
+        user.setLastName(input.getLastName());
         user.setEmail(input.getEmail());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         return userRepository.save(user);
@@ -39,12 +41,12 @@ public class AuthenticationService {
     public User authenticate(LoginUserDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        input.getEmail(),
+                        input.getUsername(),
                         input.getPassword()
                 )
         );
 
-        return userRepository.findByEmail(input.getEmail())
+        return userRepository.findByUsername(input.getUsername())
                 .orElseThrow();
     }
 }
