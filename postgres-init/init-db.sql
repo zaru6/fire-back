@@ -68,37 +68,40 @@ CREATE TABLE models.products (
     name VARCHAR(255),
     price INTEGER,
     subcategory_id INTEGER,
-    available BOOLEAN
+    available BOOLEAN,
+    created_by INTEGER,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Create 'products' init data
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Salad', 23, (select id from models.subcategories where name='vegetables_groceries'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Salad', 23, (select id from models.subcategories where name='vegetables_groceries'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Tomato', 32, (select id from models.subcategories where name='vegetables_groceries'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Tomato', 32, (select id from models.subcategories where name='vegetables_groceries'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Paprika', 32, (select id from models.subcategories where name='vegetables_groceries'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Paprika', 32, (select id from models.subcategories where name='vegetables_groceries'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Pastrva', 32, (select id from models.subcategories where name='meat_groceries'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Pastrva', 32, (select id from models.subcategories where name='meat_groceries'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Pršut', 32, (select id from models.subcategories where name='meat_groceries'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Pršut', 32, (select id from models.subcategories where name='meat_groceries'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Ibanez Prestige', 1500, (select id from models.subcategories where name='cleaning_appliances'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Ibanez Prestige', 1500, (select id from models.subcategories where name='cleaning_appliances'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Sonor drum set', 1500, (select id from models.subcategories where name='drums_and_percussion_musical_instruments'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Sonor drum set', 1500, (select id from models.subcategories where name='drums_and_percussion_musical_instruments'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Gorenje washing machine', 2000, (select id from models.subcategories where name='drums_and_percussion_musical_instruments'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Gorenje washing machine', 2000, (select id from models.subcategories where name='drums_and_percussion_musical_instruments'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 INSERT INTO models.products
-(name, price, subcategory_id, available)
-VALUES('Old spice lagoon', 2.5, (select id from models.subcategories where name='deodorants_chemistry'), true);
+(name, price, subcategory_id, available, created_by, created_at, updated_at)
+VALUES('Old spice lagoon', 2.5, (select id from models.subcategories where name='deodorants_chemistry'), true, (select id from public.users where username='johndoe'), CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
 
 

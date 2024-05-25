@@ -15,11 +15,13 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final JdbcFireDao jdbcFireDao;
+    private final UserService userService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository, JdbcFireDao jdbcFireDao) {
+    public ProductService(ProductRepository productRepository, JdbcFireDao jdbcFireDao, UserService userService) {
         this.productRepository = productRepository;
         this.jdbcFireDao = jdbcFireDao;
+        this.userService = userService;
     }
 
     public List<Product> findAllProducts() {
@@ -31,6 +33,7 @@ public class ProductService {
     }
 
     public Product saveProduct(Product product) {
+        product.setCreatedBy(userService.getAuthenticatedUser().getId());
         return productRepository.save(product);
     }
 
