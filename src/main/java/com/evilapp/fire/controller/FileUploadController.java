@@ -9,7 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.evilapp.fire.dao.JdbcFireDao;
 import com.evilapp.fire.model.CsvData;
 import com.evilapp.fire.model.Product;
+import com.evilapp.fire.repository.ProductRepository;
 import com.evilapp.fire.service.CsvDataService;
+import com.evilapp.fire.service.UserService;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -22,10 +24,17 @@ import java.util.List;
 public class FileUploadController {
 
     private final JdbcFireDao jdbcFireDao;
+    private final ProductRepository productRepository;
+    private final UserService userService;
 
     @Autowired
-    public FileUploadController(JdbcFireDao jdbcFireDao) {
+    public FileUploadController(
+        JdbcFireDao jdbcFireDao, 
+        ProductRepository productRepository,
+        UserService userService) {
         this.jdbcFireDao = jdbcFireDao;
+        this.productRepository = productRepository;
+        this.userService = userService; 
     }
 
     @PostMapping("/csv")
@@ -45,12 +54,12 @@ public class FileUploadController {
                 product.setPrice(Integer.parseInt(values[1]));
                 product.setSubcategoryId(Integer.parseInt(values[2]));
                 product.setAvailable(Boolean.parseBoolean(values[3]));
+                product.setCreatedBy(userService.getAuthenticatedUser().getId());
                 productCsvList.add(product);
             }
-            for(Product product : productCsvList) {
-                jdbcFireDao.insertProduct(product.getName(), product.getPrice(), product.getSubcategoryId(), product.getAvailable());
+            for(Product product : productCsvList) { //za lakše debugiranje
+                productRepository.save(product);
             }
-
 
             return new ResponseEntity<>("File uploaded and processed successfully!", HttpStatus.OK);
         } catch (Exception e) {
