@@ -1,7 +1,7 @@
 package com.evilapp.fire.controller;
 
+import com.evilapp.fire.dtos.ProductDto;
 import com.evilapp.fire.model.Product;
-import com.evilapp.fire.model.ProductTable;
 import com.evilapp.fire.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,8 +55,8 @@ public class ProductController {
     }
 
     @GetMapping("/table")
-    public ResponseEntity<List<ProductTable>> getAllProductsForTable() {
-        List<ProductTable> products = productService.getProductsForTable();
+    public ResponseEntity<List<ProductDto>> getAllProductsForTable() {
+        List<ProductDto> products = productService.getProductsForTable();
         return ResponseEntity.ok(products);
     }
 }

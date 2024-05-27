@@ -1,9 +1,14 @@
-package com.evilapp.fire.model;
+package com.evilapp.fire.dtos;
+
+import java.util.Date;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 
-public class ProductTable {
+public class ProductDto {
 
     @Id // Ensures the column is not nullable and sets max length
     private Long id;
@@ -23,7 +28,18 @@ public class ProductTable {
     @Column
     private String subcategoryLabel;
 
-    public ProductTable() {
+    @Column
+    private String createdBy;
+
+    @CreationTimestamp
+    @Column(updatable = false, name = "created_at")
+    private Date createdAt;
+
+    @UpdateTimestamp
+    @Column(name = "updated_at")
+    private Date updatedAt;
+
+    public ProductDto() {
 
     }
 
@@ -75,6 +91,28 @@ public class ProductTable {
         this.subcategoryLabel = subcategoryLabel;
     }
 
-    
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
 }
