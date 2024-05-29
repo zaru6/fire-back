@@ -20,14 +20,11 @@ public class Topic {
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Uses the database's SERIAL type
     private Long id;
 
-    @Column // Ensures the column is not nullable and sets max length
-    private String replyText;
+    @Column
+    private String title;
 
     @Column
-    private Integer topicId;
-
-    @Column
-    private Integer replyOrder;
+    private String description;
 
     @Column
     private Integer createdBy;
@@ -49,22 +46,6 @@ public class Topic {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getReplyText() {
-        return replyText;
-    }
-
-    public void setReplyText(String replyText) {
-        this.replyText = replyText;
-    }
-
-    public Integer getTopicId() {
-        return topicId;
-    }
-
-    public void setTopicId(Integer topicId) {
-        this.topicId = topicId;
     }
 
     public Integer getCreatedBy() {
@@ -91,12 +72,20 @@ public class Topic {
         this.updatedAt = updatedAt;
     }
 
-    public Integer getReplyOrder() {
-        return replyOrder;
+    public String getTitle() {
+        return title;
     }
 
-    public void setReplyOrder(Integer replyOrder) {
-        this.replyOrder = replyOrder;
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
 }

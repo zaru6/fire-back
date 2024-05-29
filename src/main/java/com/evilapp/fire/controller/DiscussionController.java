@@ -1,13 +1,15 @@
 package com.evilapp.fire.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.evilapp.fire.model.Product;
 import com.evilapp.fire.model.Topic;
 import com.evilapp.fire.model.TopicReply;
 import com.evilapp.fire.service.TopicReplyService;
@@ -32,8 +34,14 @@ public class DiscussionController {
     }
 
     @GetMapping("/replies")
-    public ResponseEntity<List<TopicReply>> getAllreplies() {
+    public ResponseEntity<List<TopicReply>> getAllReplies() {
         List<TopicReply> replies = topicReplyService.getAllReplies();
+        return ResponseEntity.ok(replies);
+    }
+
+    @GetMapping("/topic-replies/{id}")
+    public ResponseEntity<List<TopicReply>> getRepliesFromTopicId(@PathVariable Long id) {
+        List<TopicReply> replies = topicReplyService.getAllRepliesForTopic(id.intValue());
         return ResponseEntity.ok(replies);
     }
 
