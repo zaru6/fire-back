@@ -3,13 +3,15 @@ package com.evilapp.fire.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.evilapp.fire.model.Product;
 import com.evilapp.fire.model.Topic;
 import com.evilapp.fire.model.TopicReply;
 import com.evilapp.fire.service.TopicReplyService;
@@ -40,6 +42,12 @@ public class DiscussionController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/topics")
+    public ResponseEntity<Topic> createTopic(@RequestBody Topic topic) {
+        Topic savedTopic = topicService.saveTopic(topic);
+        return new ResponseEntity<>(savedTopic, HttpStatus.CREATED);
+    }
+
     @GetMapping("/replies")
     public ResponseEntity<List<TopicReply>> getAllReplies() {
         List<TopicReply> replies = topicReplyService.getAllReplies();
@@ -50,6 +58,12 @@ public class DiscussionController {
     public ResponseEntity<List<TopicReply>> getRepliesFromTopicId(@PathVariable Long id) {
         List<TopicReply> replies = topicReplyService.getAllRepliesForTopic(id.intValue());
         return ResponseEntity.ok(replies);
+    }
+
+    @PostMapping("/replies")
+    public ResponseEntity<TopicReply> createTopicReply(@RequestBody TopicReply topicReply) {
+        TopicReply savedTopicReply = topicReplyService.saveTopicReply(topicReply);
+        return new ResponseEntity<>(savedTopicReply, HttpStatus.CREATED);
     }
 
 }
