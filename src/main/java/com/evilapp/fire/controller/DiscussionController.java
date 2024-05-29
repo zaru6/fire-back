@@ -33,6 +33,13 @@ public class DiscussionController {
         return ResponseEntity.ok(topics);
     }
 
+    @GetMapping("/topics/{id}")
+    public ResponseEntity<Topic> getTopicbyId(@PathVariable Long id) {
+        Optional<Topic> topic = topicService.findTopicById(id);
+        return topic.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @GetMapping("/replies")
     public ResponseEntity<List<TopicReply>> getAllReplies() {
         List<TopicReply> replies = topicReplyService.getAllReplies();
