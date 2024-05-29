@@ -36,4 +36,8 @@ public class TopicReplyService {
         return topicReplyRepository.save(topicReply);
     }
 
+    public Integer getMaxReplyOrderForTopic(Integer topicId) {
+        return topicReplyRepository.findMaxReplyOrderByTopicId(topicId);
+    }
+
 }

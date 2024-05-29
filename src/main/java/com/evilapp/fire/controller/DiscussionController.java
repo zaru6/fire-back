@@ -62,6 +62,12 @@ public class DiscussionController {
 
     @PostMapping("/replies")
     public ResponseEntity<TopicReply> createTopicReply(@RequestBody TopicReply topicReply) {
+        Integer maxReplyOrder = topicReplyService.getMaxReplyOrderForTopic(topicReply.getTopicId());
+        if (maxReplyOrder == null) {
+            topicReply.setReplyOrder(1);
+        } else {
+            topicReply.setReplyOrder(maxReplyOrder + 1);
+        }
         TopicReply savedTopicReply = topicReplyService.saveTopicReply(topicReply);
         return new ResponseEntity<>(savedTopicReply, HttpStatus.CREATED);
     }
