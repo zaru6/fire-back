@@ -21,8 +21,8 @@ public class ProductDtoMapper implements RowMapper<ProductDto> {
         productDto.setCategoryLabel(rs.getString("category_label"));
         productDto.setSubcategoryLabel(rs.getString("subcategory_label"));
         productDto.setCreatedBy(rs.getString("created_by"));
-        productDto.setCreatedAt(rs.getDate("created_at"));
-        productDto.setUpdatedAt(rs.getDate("updated_at"));
+        productDto.setCreatedAt(rs.getTimestamp("created_at"));
+        productDto.setUpdatedAt(rs.getTimestamp("updated_at"));
         return productDto;
     }
 
